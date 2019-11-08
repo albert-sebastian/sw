@@ -1,9 +1,11 @@
 var CACHE_NAME = 'my-site-cache-v1';
 var urlsToCache = [
-  './main.css'
+  '/sw/',
+  '/sw/main.css'
 ];
 
 self.addEventListener('install', function(event) {
+  console.log("On Install");
   // Perform install steps
   event.waitUntil(
     caches.open(CACHE_NAME)
@@ -15,6 +17,7 @@ self.addEventListener('install', function(event) {
 });
 
 self.addEventListener('fetch', function(event) {
+  console.log("On Fetch");
   event.respondWith(
     caches.match(event.request)
       .then(function(response) {
@@ -50,7 +53,7 @@ self.addEventListener('fetch', function(event) {
 
 
 self.addEventListener('activate', function(event) {
-
+  console.log("On Active");
   var cacheWhitelist = ['pages-cache-v1', 'blog-posts-cache-v1'];
 
   event.waitUntil(
